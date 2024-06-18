@@ -1,20 +1,22 @@
 #!/bin/bash
 
-echo "                 ██████  ██ ███    ██  ██████  ██       ██████  ███    ██  ██████                       "
-echo "                ██    ██ ██ ████   ██ ██       ██      ██    ██ ████   ██ ██                            "
-echo "                ██    ██ ██ ██ ██  ██ ██   ███ ██      ██    ██ ██ ██  ██ ██   ███                      "
-echo "                ██ ▄▄ ██ ██ ██  ██ ██ ██    ██ ██      ██    ██ ██  ██ ██ ██    ██                      "
-echo "                 ██████  ██ ██   ████  ██████  ███████  ██████  ██   ████  ██████                       "
-echo "                    ▀▀                                                                                  "
-echo "                                                                                                        "
-echo "██ ███    ██ ███████ ████████  █████  ██      ██            ███████  ██████ ██████  ██ ██████  ████████ "
-echo "██ ████   ██ ██         ██    ██   ██ ██      ██            ██      ██      ██   ██ ██ ██   ██    ██    "
-echo "██ ██ ██  ██ ███████    ██    ███████ ██      ██      █████ ███████ ██      ██████  ██ ██████     ██    "
-echo "██ ██  ██ ██      ██    ██    ██   ██ ██      ██                 ██ ██      ██   ██ ██ ██         ██    "
-echo "██ ██   ████ ███████    ██    ██   ██ ███████ ███████       ███████  ██████ ██   ██ ██ ██         ██    "
-echo "                                                                                                        "
-echo "                                                                                                        "
-echo "                                                                    Made By@https://github.com/Fansirsqi"
+echo "╔──────────────────────────────────────────────────────────────────────────────────────────────────────────────╗";
+echo "│                                                                                                              │";
+echo "│                    ██████╗ ██╗███╗   ██╗ ██████╗ ██╗      ██████╗ ███╗   ██╗ ██████╗                         │";
+echo "│                   ██╔═══██╗██║████╗  ██║██╔════╝ ██║     ██╔═══██╗████╗  ██║██╔════╝                         │";
+echo "│                   ██║   ██║██║██╔██╗ ██║██║  ███╗██║     ██║   ██║██╔██╗ ██║██║  ███╗                        │";
+echo "│                   ██║▄▄ ██║██║██║╚██╗██║██║   ██║██║     ██║   ██║██║╚██╗██║██║   ██║                        │";
+echo "│                   ╚██████╔╝██║██║ ╚████║╚██████╔╝███████╗╚██████╔╝██║ ╚████║╚██████╔╝                        │";
+echo "│                    ╚══▀▀═╝ ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝                         │";
+echo "│                                                                                                              │";
+echo "│   ██╗███╗   ██╗███████╗████████╗ █████╗ ██╗     ██╗           ███████╗ ██████╗██████╗ ██╗██████╗ ████████╗   │";
+echo "│   ██║████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██║     ██║           ██╔════╝██╔════╝██╔══██╗██║██╔══██╗╚══██╔══╝   │";
+echo "│   ██║██╔██╗ ██║███████╗   ██║   ███████║██║     ██║     █████╗███████╗██║     ██████╔╝██║██████╔╝   ██║      │";
+echo "│   ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██║     ╚════╝╚════██║██║     ██╔══██╗██║██╔═══╝    ██║      │";
+echo "│   ██║██║ ╚████║███████║   ██║   ██║  ██║███████╗███████╗      ███████║╚██████╗██║  ██║██║██║        ██║      │";
+echo "│   ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝      ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝      │";
+echo "│                                                                      Made By@https://github.com/Fansirsqi    │";
+echo "╚──────────────────────────────────────────────────────────────────────────────────────────────────────────────╝";
 
 require_root() {
     if [ "$(id -u)" == "0" ]; then
@@ -47,6 +49,17 @@ set_dns() {
 
 set_dns
 
+cp /etc/apt/sources.list /etc/apt/sources.list.bak && echo "备份 /etc/apt/sources.list 至 /etc/apt/sources.list.bak"
+cat >/etc/apt/sources.list <<EOF
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+EOF
+
 apt update -y
 
 groupadd -g 3001 aid_bt
@@ -62,7 +75,9 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "设置时区完
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 
 apt-get install -y nodejs && echo "Node.js 安装完成"
+
 apt-get install -y sqlite3 && echo "SQLite3 安装完成"
+
 apt-get install -y nginx-full && echo "Nginx 安装完成"
 
 apt-get install -y unzip openssl jq libssl-dev openssh-server libpango1.0-dev perl libpixman-1-dev procps python3-pip python3-dev login wget autoconf automake git && echo "其他依赖安装完成"
@@ -90,20 +105,22 @@ git clone --depth=1 -b debian https://gitee.com/whyour/qinglong-static.git /stat
 npm --registry https://registry.npmmirror.com i -g pnpm@8.3.1 pm2 tsx && echo "青龙基础依赖安装完成"
 pnpm config set -g registry=https://registry.npmmirror.com && echo "pnpm镜像源设置完成"
 cd /ql && pnpm install --prod && echo "青龙npm依赖安装完成"
+
 cp -f .env.example .env && echo "青龙环境变量配置完成"
 chmod 777 /ql/shell/*.sh && echo "青龙脚本权限设置完成"
 chmod 777 /ql/docker/*.sh && echo "青龙docker脚本权限设置完成"
 mkdir -p /ql/static
 cp -rf /static/* /ql/static && echo "青龙静态资源安装完成"
 
-cat >/root/.bashrc <<EOF
-export PNPM_HOME=/root/.local/share/pnpm
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.local/share/pnpm:/root/.local/share/pnpm/global/5/node_modules:\$PNPM_HOME
-NODE_PATH=/usr/local/bin:/usr/local/pnpm-global/5/node_modules:/usr/local/lib/node_modules:/root/.local/share/pnpm/global/5/node_modules
-LANG=C.UTF-8
-SHELL=/bin/bash
-PS1='\u@\h:\w\\$ '
-QL_DIR=/ql
+cp /root/.bashrc /root/.bashrc.bak && echo "备份 /root/.bashrc 至 /root/.bashrc.bak"
+cat >>/root/.bashrc <<EOF
+export PNPM_HOME=/root/.local/share/pnpm \
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/.local/share/pnpm:/root/.local/share/pnpm/global/5/node_modules:\$PNPM_HOME \
+NODE_PATH=/usr/local/bin:/usr/local/pnpm-global/5/node_modules:/usr/local/lib/node_modules:/root/.local/share/pnpm/global/5/node_modules \
+LANG=C.UTF-8 \
+SHELL=/bin/bash \
+PS1='\u@\h:\w\\$ ' \
+QL_DIR=/ql \
 QL_BRANCH=debian
 EOF
 
