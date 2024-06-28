@@ -15,15 +15,15 @@ echo "│   ██║██╔██╗ ██║███████╗   █�
 echo "│   ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██║     ╚════╝╚════██║██║     ██╔══██╗██║██╔═══╝    ██║      │";
 echo "│   ██║██║ ╚████║███████║   ██║   ██║  ██║███████╗███████╗      ███████║╚██████╗██║  ██║██║██║        ██║      │";
 echo "│   ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝      ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝        ╚═╝      │";
-echo "│                                                                      Made By@https://github.com/Fansirsqi    │";
+echo "│                                              Made By@https://github.com/Fansirsqi/qinglong-install-script    │";
 echo "╚──────────────────────────────────────────────────────────────────────────────────────────────────────────────╝";
 
 require_root() {
     if [ "$(id -u)" == "0" ]; then
         # 如果这里是root用户，执行后续命令
-        echo "✅您是root用户，将继续运行脚本。"
+        echo "✓您是root用户，将继续运行脚本。"
     else
-        echo "❌您需要root权限来运行此脚本。"
+        echo "X您需要root权限来运行此脚本。"
         exit 1
     fi
 }
@@ -50,6 +50,7 @@ set_dns() {
 set_dns
 
 cp /etc/apt/sources.list /etc/apt/sources.list.bak && echo "备份 /etc/apt/sources.list 至 /etc/apt/sources.list.bak"
+
 cat >/etc/apt/sources.list <<EOF
 # 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
@@ -69,18 +70,18 @@ groupadd -g 3004 aid_net_raw
 groupadd -g 3005 aid_admin
 usermod -a -G aid_bt,aid_bt_net,aid_inet,aid_net_raw,aid_admin root
 
-sudo apt-get install -y tzdata
+sudo apt-get install -y --no-install-recommends tzdata
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo "设置时区完成"
 
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 
-apt-get install -y nodejs && echo "Node.js 安装完成"
+apt-get install -y --no-install-recommends nodejs && echo "Node.js 安装完成"
 
-apt-get install -y sqlite3 && echo "SQLite3 安装完成"
+apt-get install -y --no-install-recommends sqlite3 && echo "SQLite3 安装完成"
 
-apt-get install -y nginx-full && echo "Nginx 安装完成"
+apt-get install -y --no-install-recommends nginx-full && echo "Nginx 安装完成"
 
-apt-get install -y unzip openssl jq libssl-dev openssh-server libpango1.0-dev perl libpixman-1-dev procps python3-pip python3-dev login wget autoconf automake git && echo "其他依赖安装完成"
+apt-get install -y --no-install-recommends unzip openssl jq libssl-dev openssh-server libpango1.0-dev perl libpixman-1-dev procps python3-pip python3-dev login wget autoconf automake git && echo "其他依赖安装完成"
 
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && echo "pip镜像源设置完成"
 
